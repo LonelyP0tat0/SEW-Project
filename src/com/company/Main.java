@@ -155,6 +155,83 @@ public class Main {
 
     }
 
+    public static void bossSpell (Player player, Boss boss) {
+
+        switch(player.pClass) {
+
+            case "warrior":
+
+                if (boss.passive.equals("rejuvenation") && (boss.hp + 2) <= boss.baseHp) {
+                    boss.hp += 2;
+                    System.out.println(boss.bName + " has healed 2 hp back thanks to its passive, remaining hp:" + boss.hp);
+                }
+
+                player.atk += 8;
+                player.hp -= boss.atk;
+
+
+                if (boss.hp < 0) {
+                    boss.hp = 0;
+                } else if (player.hp < 0) {
+                    player.hp = 0;
+                }
+
+                System.out.println("\n" + "You have become enraged, your atk has been increased by 4, then it attacks you");
+
+                break;
+
+            case "archer":
+
+                if (boss.passive.equals("rejuvenation") && (boss.hp + 2) <= boss.baseHp) {
+                    boss.hp += 2;
+                    System.out.println(boss.bName + " has healed 2 hp back thanks to its passive, remaining hp:" + boss.hp);
+                }
+
+                boss.hp -= 18;
+                player.hp -= boss.atk;
+
+                if (boss.hp < 0) {
+                    boss.hp = 0;
+                } else if (player.hp < 0) {
+                    player.hp = 0;
+                }
+
+                System.out.println("\n" + "You fire a rapid volley or arrows dealing 18 dmg to your opponent, then it attacks you back");
+
+                break;
+
+            case "sorcerer":
+
+                if (boss.passive.equals("rejuvenation") && (boss.hp + 2) <= boss.baseHp) {
+                    boss.hp += 2;
+                    System.out.println(boss.bName + " has healed 2 hp back thanks to its passive, remaining hp:" + boss.hp);
+                }
+
+                boss.hp -= 5 + (int) ((boss.baseHp - boss.hp) * 0.7);
+                player.hp -= boss.atk;
+
+                if (boss.hp < 0) {
+                    boss.hp = 0;
+                } else if (player.hp < 0) {
+                    player.hp = 0;
+                }
+
+                System.out.println("\n" + "You shoot a giant fireball at your enemy dealing missing health dmg, then your opponent attacks you back");
+
+                break;
+        }
+
+        System.out.println("Your remaining hp: " + player.hp + ", " + boss.bName + "'s remaining hp: " + boss.hp);
+
+        if (boss.hp == 0) {
+            bossKill(player, boss);
+            System.out.println("Good job, you have escaped. Now go do something with your life");
+        } else if (player.hp == 0) {
+            System.out.println("You died!");
+        }
+
+    }
+
     public static void heal (Player player) {
         if (player.hp + 10 > player.baseHp) {
             player.hp = player.baseHp;
