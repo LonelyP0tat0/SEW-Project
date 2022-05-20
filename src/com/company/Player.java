@@ -44,6 +44,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "\nplayer name: " + pName + "\n" + "player class: " + pClass + "\n" + "player base hp: " + baseHp + "\n" + "player current hp: " + hp + "\n" + "player atk: " + atk;
+        return "player name: " + pName + "\nplayer class: " + pClass + "\nplayer base hp: " + baseHp + "\nplayer current hp: " + hp + "\nplayer atk: " + atk + "\n";
     }
 }

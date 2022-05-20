@@ -35,7 +35,8 @@ public class Main {
 
         if (enemy.hp < 0) {
             enemy.hp = 0;
-        } else if (player.hp < 0) {
+        }
+        if (player.hp < 0) {
             player.hp = 0;
         }
 

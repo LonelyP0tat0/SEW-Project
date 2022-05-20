@@ -13,6 +13,7 @@ public class Monster extends Enemy {
                 hp = 13;
                 xpDrop = 5;
                 itemDropChance = 40;
+                passive = "";
             }
             case "troll" -> {
                 atk = 7;
@@ -20,6 +21,7 @@ public class Monster extends Enemy {
                 hp = 18;
                 xpDrop = 10;
                 itemDropChance = 80;
+                passive = "";
             }
             case "skeleton" -> {
                 atk = 6;
@@ -27,12 +29,13 @@ public class Monster extends Enemy {
                 hp = 10;
                 xpDrop = 2;
                 itemDropChance = 30;
+                passive = "";
             }
         }
     }
 
     @Override
     public String toString() {
-        return "\nmonster class: " + mClass + "\n" + "monster hp: " + hp + "\n" + "monster atk: " + atk + "\n";
+        return "monster class: " + mClass + "\nmonster hp: " + hp + "\nmonster atk: " + atk + "\nitem drop rate: " + itemDropChance + "%\n";
     }
 }

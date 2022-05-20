@@ -17,7 +17,7 @@ public class Boss extends Enemy {
 
     @Override
     public String toString() {
-        return "\nboss: " + bName + "\n" + "boss hp: " + hp + "\n" + "boss atk: " + atk + "\n" + "pasive: " + passive;
+        return "boss: " + bName + "\nboss hp: " + hp + "\nboss atk: " + atk + "\npasive: " + passive + "\n";
     }
 
 }
