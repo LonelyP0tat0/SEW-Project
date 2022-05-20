@@ -1,13 +1,6 @@
 package com.company;
 
-public class Monster {
-
-    String mClass;
-    int atk;
-    int hp;
-    int baseHp;
-    int xpDrop;
-    int itemDropChance;
+public class Monster extends Enemy {
 
     Monster (String monsterClass) {
 

@@ -11,7 +11,6 @@ public class Player {
     int baseHp;
     int xp = 0;
     int level = 1;
-    boolean hasKey = false;
 
     Player (String playerName, String playerClass) {
 

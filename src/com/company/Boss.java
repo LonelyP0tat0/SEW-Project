@@ -1,22 +1,15 @@
 package com.company;
 
-public class Boss {
-
-    String bName;
-    String bCLass;
-    String passive;
-    int atk;
-    int hp;
-    int baseHp;
-    boolean alive;
+public class Boss extends Enemy {
 
     Boss (String bossName) {
 
         bName = bossName;
         bCLass = "boss";
-        atk = 20;
-        hp = 100;
-        baseHp = 100;
+        mClass = "";
+        atk = 5;
+        hp = 10;
+        baseHp = 10;
         alive = true;
         passive = "rejuvenation";
 
