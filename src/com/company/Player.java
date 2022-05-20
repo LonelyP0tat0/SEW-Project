@@ -17,24 +17,28 @@ public class Player {
         pName = playerName;
         pClass = playerClass;
 
-        if (pClass.equals("warrior")) {
-            atk = 9;
-            baseAtk = 9;
-            baseHp = 20;
-            hp = 20;
-            spell = "rage buff";
-        } else if (pClass.equals("sorcerer")) {
-            atk = 4;
-            baseAtk = 4;
-            baseHp = 15;
-            hp = 15;
-            spell = "fireball";
-        } else if (pClass.equals("archer")) {
-            atk = 12;
-            baseAtk = 12;
-            baseHp = 12;
-            hp = 12;
-            spell = "rapid-fire";
+        switch (pClass) {
+            case "warrior" -> {
+                atk = 9;
+                baseAtk = 9;
+                baseHp = 20;
+                hp = 20;
+                spell = "rage buff";
+            }
+            case "sorcerer" -> {
+                atk = 4;
+                baseAtk = 4;
+                baseHp = 15;
+                hp = 15;
+                spell = "fireball";
+            }
+            case "archer" -> {
+                atk = 12;
+                baseAtk = 12;
+                baseHp = 12;
+                hp = 12;
+                spell = "rapid-fire";
+            }
         }
     }
 
