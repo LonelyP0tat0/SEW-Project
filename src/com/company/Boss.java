@@ -8,8 +8,8 @@ public class Boss extends Enemy {
         bCLass = "boss";
         mClass = "";
         atk = 5;
-        hp = 10;
-        baseHp = 10;
+        hp = 50;
+        baseHp = 50;
         alive = true;
         passive = "rejuvenation";
 
