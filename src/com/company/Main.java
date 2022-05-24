@@ -14,6 +14,15 @@ public class Main {
 
     }
 
+    /**
+     * initates a battle between the player and the chosen enemy, hp decreases
+     * based on the others atk. Can trigger the method itemDrop() and kill()
+     * prints out dialogue accordingly
+     * If the defeated enemy was a boss, a different dialogue will appear
+     * @param player
+     * @param enemy
+     */
+
     public static void fight (Player player, Enemy enemy) {
 
         Item kingRing = new Item("gandalf's ring");
@@ -62,6 +71,16 @@ public class Main {
             System.out.println("You died!");
         }
     }
+
+    /**
+     * activates the players ability based on their class (archer, mage, knight)
+     * the player uses their abilty and the monster attacks, both lose hp unless
+     * it's a buff ability (knigts). Can trigger the methods itemDrop() and kill()
+     * prints out dialogue accordingly
+     * If the defeated enemy was a boss, a different dialogue will appear
+     * @param player
+     * @param enemy
+     */
 
     public static void spell (Player player, Enemy enemy) {
 
@@ -156,14 +175,31 @@ public class Main {
 
     }
 
+    /**
+     * increases the players current hp by 10
+     * you can not heal more than you have max hp
+     * prints out dialogue accordingly
+     * @param player
+     */
+
     public static void heal (Player player) {
         if (player.hp + 10 > player.baseHp) {
             player.hp = player.baseHp;
+            System.out.println("\n" + "You drink a healing potion and heal to full");
+        } else if (player.hp == player.baseHp) {
+            System.out.println("\n" + "You are already at full health, you can't drink another health potion!");
         } else {
             player.hp += 10;
         }
-        System.out.println("\n" + "You drink a healing potions and gain 10 hp, current hp: " + player.hp);
+        System.out.println("\n" + "You drink a healing potion and gain 10 hp, current hp: " + player.hp);
     }
+
+    /**
+     * players level up when they've gained enough xp from the method kill()
+     * the players base stats get increased by 2 and heals them for 4 hp
+     * prints out dialogue accordingly
+     * @param player
+     */
 
     static void levelUp (Player player) {
         player.level += 1;
@@ -173,6 +209,16 @@ public class Main {
         System.out.println("You have leveled up, your new level is now: " + player.level);
         System.out.println("All your base stats have been boosted:\n" + player);
     }
+
+    /**
+     * kill() gets triggered by the methods fight() and spell()
+     * player gains xp and can trigger the method levelUp() when the enemies hp=0
+     * the enemies hp gets reset after dying
+     * prints out dialogue accordingly
+     * If the defeated enemy was a boss, a different dialogue will appear
+     * @param player
+     * @param enemy
+     */
 
     static void kill (Player player, Enemy enemy) {
         enemy.hp = enemy.baseHp;
@@ -186,6 +232,19 @@ public class Main {
             System.out.println("you have gained " + enemy.xpDrop + " xp");
         }
     }
+
+    /**
+     * If the enemy dies, there's a chance it'll
+     * drop loot (every enemy has different drop rates), then there's a 50% chance
+     * for one of the 3 armor pieces (permanent hp boost) and 50% chance for one of
+     * the 3 rings (permanent atk boost). There are 3 rarities, each with their own droprate
+     * Everything is calculated randomly with Math.random()
+     * prints out dialogue accordingly
+     * @param player
+     * @param enemy
+     * @param itemList      //Arraylist of all the possible items
+     * @return              //returns true if an item has been dropped by the enemy
+     */
 
     static boolean itemDrop (Player player, Enemy enemy, Item[] itemList) {
 

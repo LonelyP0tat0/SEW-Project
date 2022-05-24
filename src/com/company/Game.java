@@ -1,21 +1,18 @@
 package com.company;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Game extends Application {
 
-    Player player1 = new Player("jerryTheSmol", "archer");
+    Player player1 = new Player("player", "archer");
     Monster skeleton = new Monster("skeleton");
     Monster troll = new Monster("troll");
     Monster goblin = new Monster("goblin");
