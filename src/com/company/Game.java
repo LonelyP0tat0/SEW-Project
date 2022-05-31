@@ -39,7 +39,7 @@ public class Game extends Application {
         fightB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                Main.fight(player1, troll);
+                player1.fight(troll);
             }
         });
 
@@ -47,7 +47,7 @@ public class Game extends Application {
         healB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                Main.heal(player1);
+                player1.heal();
             }
         });
 
@@ -55,7 +55,7 @@ public class Game extends Application {
         spellB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                Main.spell(player1, troll);
+                player1.spell(troll);
             }
         });
 
