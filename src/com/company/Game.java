@@ -8,7 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Game extends Application {
 
@@ -21,8 +24,13 @@ public class Game extends Application {
     @Override
     public void start(Stage stage) {
         stage.setTitle("Game");
-        stage.setMinWidth(600);
+        stage.setMinWidth(625);
         stage.setMinHeight(500);
+
+        ArrayList <Enemy> enemies = new ArrayList<>();
+        enemies.add(skeleton);
+        enemies.add(troll);
+        enemies.add(goblin);
 
         GridPane gridPane = new GridPane();
         Scene scene = new Scene(gridPane, 550, 500);
@@ -32,14 +40,15 @@ public class Game extends Application {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
 
-        Label stats = new Label(player1 + "");
-        Label enemyStats = new Label(troll + "");
-
         Button fightB = new Button("fight");
         fightB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
                 player1.fight(troll);
+
+                if (player1.hp == 0) {
+                    stage.close();
+                }
             }
         });
 
@@ -55,18 +64,33 @@ public class Game extends Application {
         spellB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                player1.spell(troll);
+                if (player1.level != 5) {
+                    player1.spell(troll);
+                } else {
+                    player1.spell(boss);
+                }
+
+                if (player1.hp == 0) {
+                    stage.close();
+                }
             }
         });
 
-        gridPane.add(fightB, 0, 30);
-        gridPane.add(healB, 15, 30);
-        gridPane.add(spellB, 30, 30);
+        Button statsB = new Button("stats");
+        statsB.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                System.out.println(player1);
+                System.out.println(troll);
+            }
+        });
 
-        gridPane.add(stats, 0, 0);
-        gridPane.add(enemyStats, 30, 0);
+        gridPane.add(fightB, 0, 40);
+        gridPane.add(healB, 15, 40);
+        gridPane.add(spellB, 30, 40);
+        gridPane.add(statsB, 45, 40);
 
-        gridPane.setGridLinesVisible(true);
+        gridPane.setGridLinesVisible(false);
 
         stage.show();
     }

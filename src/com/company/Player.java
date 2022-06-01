@@ -158,7 +158,7 @@ public class Player {
                     hp = 0;
                 }
 
-                System.out.println("\n" + "You fire a rapid volley or arrows dealing 18 dmg to your opponent, then it attacks you back");
+                System.out.println("\n" + "You fire a rapid volley of arrows dealing 18 dmg to your opponent, then it attacks you back");
 
                 break;
 
@@ -226,12 +226,14 @@ public class Player {
      */
 
     private void levelUp () {
-        level += 1;
-        xp -= 15;
-        atk += 2;
-        baseHp += 4;
-        System.out.println("You have leveled up, your new level is now: " + level);
-        System.out.println("All your base stats have been boosted:\n" + this);
+        if (level != 5) {
+            level += 1;
+            xp -= 15;
+            atk += 2;
+            baseHp += 4;
+            System.out.println("You have leveled up, your new level is now: " + level);
+            System.out.println("All your base stats have been boosted:\n" + this);
+        }
     }
 
     /**
@@ -243,14 +245,18 @@ public class Player {
      * @param enemy
      */
 
-    void kill (Enemy enemy) {
+    private void kill (Enemy enemy) {
         enemy.hp = enemy.baseHp;
         if (enemy.mClass == "") {
             enemy.alive = false;
             System.out.println("Congratulations, you have defeated " + enemy.bName + "!" + "\nYou can now escape the dungeon with the boss's master key!");
         } else {
             System.out.println("the " + enemy.mClass + " is dead!");
-            xp += enemy.xpDrop;
+            if (level != 5) {
+                xp += enemy.xpDrop;
+            } else {
+                System.out.println("You have reached the max level!");
+            }
             atk = baseAtk;
             System.out.println("you have gained " + enemy.xpDrop + " xp");
         }
