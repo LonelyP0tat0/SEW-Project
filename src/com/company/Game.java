@@ -6,12 +6,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class Game extends Application {
 
@@ -21,16 +18,49 @@ public class Game extends Application {
     Monster goblin = new Monster("goblin");
     Boss boss = new Boss("Malenia");
 
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("Game");
-        stage.setMinWidth(625);
-        stage.setMinHeight(500);
+    Stage stage;
 
+    Scene scene1;
+    VBox vbox1;
+    Button button1;
+
+    Scene scene2;
+    VBox vbox2;
+    Button button2;
+
+
+    @Override
+    public void start(Stage primaryStage) {
+        stage = primaryStage;
+        stage.setTitle("Menu");
+
+        scene1 = gameMenu();
+        scene2 = gameStart();
+
+        stage.setScene(scene1);
+
+        stage.show();
+    }
+
+
+    public void switchScenes(Scene scene) {
+        stage.setScene(scene);
+    }
+
+    public Scene gameMenu() {
+        button1 = new Button("Click to start game");
+        button1.setOnAction(e -> switchScenes(scene2));
+        vbox1 = new VBox(button1);
+        scene1 = new Scene(vbox1, 800, 500);
+
+        return scene1;
+    }
+
+    private Scene gameStart() {
         Enemy[] enemies = new Enemy[]{skeleton, troll, goblin};
 
         GridPane gridPane = new GridPane();
-        Scene scene = new Scene(gridPane, 550, 500);
+        Scene scene = new Scene(gridPane, 1280, 720);
         stage.setScene(scene);
 
         gridPane.setHgap(8);
@@ -93,9 +123,10 @@ public class Game extends Application {
         gridPane.add(spellB, 30, 40);
         gridPane.add(statsB, 45, 40);
 
-        gridPane.setGridLinesVisible(false);
+        gridPane.setGridLinesVisible(true);
 
         stage.show();
+        return scene;
     }
 
     public static void main(String[] args) {

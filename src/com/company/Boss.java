@@ -2,8 +2,7 @@ package com.company;
 
 public class Boss extends Enemy {
 
-    Boss (String bossName) {
-
+    public Boss (String bossName) {
         bName = bossName;
         bCLass = "boss";
         mClass = "";
