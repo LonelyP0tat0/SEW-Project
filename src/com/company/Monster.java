@@ -14,6 +14,7 @@ public class Monster extends Enemy {
                 xpDrop = 5;
                 itemDropChance = 40;
                 passive = "";
+                alive = true;
             }
             case "troll" -> {
                 atk = 7;
@@ -22,6 +23,7 @@ public class Monster extends Enemy {
                 xpDrop = 10;
                 itemDropChance = 80;
                 passive = "";
+                alive = true;
             }
             case "skeleton" -> {
                 atk = 6;
@@ -30,6 +32,7 @@ public class Monster extends Enemy {
                 xpDrop = 2;
                 itemDropChance = 30;
                 passive = "";
+                alive = true;
             }
         }
     }

@@ -10,6 +10,7 @@ public class Boss extends Enemy {
         hp = 50;
         baseHp = 50;
         passive = "rejuvenation";
+        alive = true;
 
     }
 

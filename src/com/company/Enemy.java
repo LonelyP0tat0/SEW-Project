@@ -11,6 +11,6 @@ public abstract class Enemy {
     int baseHp;
     int xpDrop;
     int itemDropChance;
-    boolean alive = true;
+    boolean alive;
 
 }
