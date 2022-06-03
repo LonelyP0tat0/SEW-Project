@@ -11,7 +11,7 @@ public class Player {
     int baseHp;
     int xp = 0;
     int level = 1;
-    boolean alive = true;
+    boolean alive;
 
     Player (String playerName, String playerClass) {
 
@@ -25,6 +25,7 @@ public class Player {
                 baseHp = 20;
                 hp = 20;
                 spell = "rage buff";
+                alive = true;
             }
             case "sorcerer" -> {
                 atk = 4;
@@ -32,6 +33,7 @@ public class Player {
                 baseHp = 15;
                 hp = 15;
                 spell = "fireball";
+                alive = true;
             }
             case "archer" -> {
                 atk = 12;
@@ -39,6 +41,7 @@ public class Player {
                 baseHp = 12;
                 hp = 12;
                 spell = "rapid-fire";
+                alive = true;
             }
         }
     }
@@ -131,7 +134,7 @@ public class Player {
 
                 atk += 8;
                 hp -= enemy.atk;
-
+                enemy.hp -= atk;
 
                 if (enemy.hp < 0) {
                     enemy.hp = 0;
@@ -209,15 +212,15 @@ public class Player {
      */
 
     void heal () {
-        if (hp + 10 > baseHp) {
+        if (hp == baseHp) {
+            System.out.println("\n" + "You are already at full health, you can't drink your health potion!");
+        } else if ((hp + 10) > baseHp || (hp + 10) == baseHp) {
             hp = baseHp;
             System.out.println("\n" + "You drink a healing potion and heal to full");
-        } else if (hp == baseHp) {
-            System.out.println("\n" + "You are already at full health, you can't drink another health potion!");
         } else {
             hp += 10;
+            System.out.println("\n" + "You drink a healing potion and gain 10 hp, current hp: " + hp);
         }
-        System.out.println("\n" + "You drink a healing potion and gain 10 hp, current hp: " + hp);
     }
 
     /**
@@ -247,9 +250,8 @@ public class Player {
      */
 
     private void kill (Enemy enemy) {
-        enemy.hp = enemy.baseHp;
+        enemy.alive = false;
         if (enemy.mClass == "") {
-            enemy.alive = false;
             System.out.println("Congratulations, you have defeated " + enemy.bName + "!" + "\nYou can now escape the dungeon with the boss's master key!");
         } else {
             System.out.println("the " + enemy.mClass + " is dead!");
@@ -283,27 +285,27 @@ public class Player {
 
         if (fiftyFifty < 50 && dropChance <= enemy.itemDropChance && itemChance <= itemList[0].dropChance) {
             atk += itemList[0].atkBoost;
-            System.out.println("You have found " + itemList[0].iName + " on the enemy, you immediately equip it and improve your stats");
+            System.out.println("\nYou have found " + itemList[0].iName + " on the enemy, you immediately equip it and improve your stats");
             return true;
         } else if (fiftyFifty < 50 && dropChance <= enemy.itemDropChance && (itemChance > itemList[0].dropChance && itemChance <= itemList[1].dropChance + itemList[0].dropChance)) {
             atk += itemList[1].atkBoost;
-            System.out.println("You have found the " + itemList[1].iName + " on the enemy, you immediately equip it and improve your stats");
+            System.out.println("\nYou have found the " + itemList[1].iName + " on the enemy, you immediately equip it and improve your stats");
             return true;
         } else if (fiftyFifty < 50 && dropChance <= enemy.itemDropChance && (itemChance > itemList[1].dropChance + itemList[0].dropChance)) {
             atk += itemList[2].atkBoost;
-            System.out.println("You have found the " + itemList[2].iName + " on the enemy, you immediately equip it and improve your stats");
+            System.out.println("\nYou have found the " + itemList[2].iName + " on the enemy, you immediately equip it and improve your stats");
             return true;
         } else if (fiftyFifty >= 50 && dropChance <= enemy.itemDropChance && itemChance <= itemList[3].dropChance) {
             baseHp += itemList[3].hpBoost;
-            System.out.println("You have found " + itemList[3].iName + " on the enemy, you immediately equip it and improve your stats");
+            System.out.println("\nYou have found " + itemList[3].iName + " on the enemy, you immediately equip it and improve your stats");
             return true;
         } else if (fiftyFifty >= 50 && dropChance <= enemy.itemDropChance && (itemChance > itemList[3].dropChance && itemChance <= itemList[4].dropChance + itemList[3].dropChance)) {
             baseHp += itemList[4].hpBoost;
-            System.out.println("You have found the " + itemList[4].iName + " on the enemy, you immediately equip it and improve your stats");
+            System.out.println("\nYou have found the " + itemList[4].iName + " on the enemy, you immediately equip it and improve your stats");
             return true;
         } else if (fiftyFifty >= 50 && dropChance <= enemy.itemDropChance && (itemChance > itemList[4].dropChance + itemList[3].dropChance)) {
             baseHp += itemList[5].hpBoost;
-            System.out.println("You have found the " + itemList[5].iName + " on the enemy, you immediately equip it and improve your stats");
+            System.out.println("\nYou have found the " + itemList[5].iName + " on the enemy, you immediately equip it and improve your stats");
             return true;
         }
 
