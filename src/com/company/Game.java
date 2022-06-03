@@ -31,8 +31,6 @@ public class Game extends Application {
     Button button1;
 
     Scene scene2;
-    VBox vbox2;
-    Button button2;
 
     @Override
     public void start(Stage primaryStage) {
