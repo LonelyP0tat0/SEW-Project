@@ -6,12 +6,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class Game extends Application {
 
@@ -21,19 +18,49 @@ public class Game extends Application {
     Monster goblin = new Monster("goblin");
     Boss boss = new Boss("Malenia");
 
-    public int iFight = 0;
-    public int iSPell = 0;
+    Stage stage;
+
+    Scene scene1;
+    VBox vbox1;
+    Button button1;
+
+    Scene scene2;
+    VBox vbox2;
+    Button button2;
+
 
     @Override
-    public void start(Stage stage) {
-        stage.setTitle("Game");
-        stage.setMinWidth(625);
-        stage.setMinHeight(500);
+    public void start(Stage primaryStage) {
+        stage = primaryStage;
+        stage.setTitle("Menu");
 
+        scene1 = gameMenu();
+        scene2 = gameStart();
+
+        stage.setScene(scene1);
+
+        stage.show();
+    }
+
+
+    public void switchScenes(Scene scene) {
+        stage.setScene(scene);
+    }
+
+    public Scene gameMenu() {
+        button1 = new Button("Click to start game");
+        button1.setOnAction(e -> switchScenes(scene2));
+        vbox1 = new VBox(button1);
+        scene1 = new Scene(vbox1, 800, 500);
+
+        return scene1;
+    }
+
+    private Scene gameStart() {
         Enemy[] enemies = new Enemy[]{skeleton, troll, goblin};
 
         GridPane gridPane = new GridPane();
-        Scene scene = new Scene(gridPane, 550, 500);
+        Scene scene = new Scene(gridPane, 1280, 720);
         stage.setScene(scene);
 
         gridPane.setHgap(8);
@@ -44,16 +71,15 @@ public class Game extends Application {
         fightB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if (enemies[iFight].alive) {
-                    player1.fight(enemies[iFight]);
-                    if (player1.hp == 0) {
-                        stage.close();
+                for (int i = 0; i < enemies.length; i++) {
+                    if (!enemies[i].alive) {
+                        i++;
+                    } else if (enemies[i].alive) {
+                        player1.fight(enemies[i]);
                     }
                 }
-                if (!enemies[iFight].alive) {
-                    iFight++;
-                }
-                if (iFight == enemies.length - 1 && !enemies[iFight].alive) {
+
+                if (player1.hp == 0) {
                     stage.close();
                 }
             }
@@ -71,16 +97,13 @@ public class Game extends Application {
         spellB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if (enemies[iSPell].alive) {
-                    player1.spell(enemies[iSPell]);
-                    if (player1.hp == 0) {
-                        stage.close();
-                    }
+                if (player1.level != 5) {
+                    player1.spell(troll);
+                } else {
+                    player1.spell(boss);
                 }
-                if (!enemies[iSPell].alive) {
-                    iSPell++;
-                }
-                if (iSPell == enemies.length - 1 && !enemies[iSPell].alive) {
+
+                if (player1.hp == 0) {
                     stage.close();
                 }
             }
@@ -100,9 +123,10 @@ public class Game extends Application {
         gridPane.add(spellB, 30, 40);
         gridPane.add(statsB, 45, 40);
 
-        gridPane.setGridLinesVisible(false);
+        gridPane.setGridLinesVisible(true);
 
         stage.show();
+        return scene;
     }
 
     public static void main(String[] args) {
