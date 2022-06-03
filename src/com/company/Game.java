@@ -27,10 +27,7 @@ public class Game extends Application {
         stage.setMinWidth(625);
         stage.setMinHeight(500);
 
-        ArrayList <Enemy> enemies = new ArrayList<>();
-        enemies.add(skeleton);
-        enemies.add(troll);
-        enemies.add(goblin);
+        Enemy[] enemies = new Enemy[]{skeleton, troll, goblin};
 
         GridPane gridPane = new GridPane();
         Scene scene = new Scene(gridPane, 550, 500);
@@ -44,7 +41,12 @@ public class Game extends Application {
         fightB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                player1.fight(troll);
+                for (int i = 0; i < enemies.length; i++) {
+                    if (enemies[i].alive) {
+                        player1.fight(enemies[i]);
+                        break;
+                    }
+                }
 
                 if (player1.hp == 0) {
                     stage.close();

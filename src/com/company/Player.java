@@ -11,6 +11,7 @@ public class Player {
     int baseHp;
     int xp = 0;
     int level = 1;
+    boolean alive = true;
 
     Player (String playerName, String playerClass) {
 
