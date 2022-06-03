@@ -68,6 +68,8 @@ public class Player {
         if (enemy.passive.equals("rejuvenation") && (enemy.hp + 2) <= enemy.baseHp) {
             enemy.hp += 2;
             System.out.println(enemy.bName + " has healed 2 hp back thanks to its passive, remaining hp:" + enemy.hp);
+        } else {
+            enemy.hp = baseHp;
         }
 
         enemy.hp -= atk;
@@ -187,7 +189,11 @@ public class Player {
                 break;
         }
 
-        System.out.println("Your remaining hp: " + hp + ", the " + enemy.mClass + "'s remaining hp: " + enemy.hp);
+        if (enemy.mClass.equals("")) {
+            System.out.println("Your remaining hp: " + hp + ", " + enemy.bName + "'s remaining hp: " + enemy.hp);
+        } else {
+            System.out.println("Your remaining hp: " + hp + ", the " + enemy.mClass + "'s remaining hp: " + enemy.hp);
+        }
 
         if (enemy.hp == 0 && hp != 0) {
             kill(enemy);
@@ -235,8 +241,8 @@ public class Player {
             xp -= 15;
             atk += 2;
             baseHp += 4;
-            System.out.println("You have leveled up, your new level is now: " + level);
-            System.out.println("All your base stats have been boosted:\n" + this);
+            System.out.println("\nYou have leveled up, your new level is now: " + level);
+            System.out.println("All your base stats have been boosted:\n" + "\n" + this);
         }
     }
 
@@ -314,6 +320,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "player name: " + pName + "\nplayer class: " + pClass + "\nplayer base hp: " + baseHp + "\nplayer current hp: " + hp + "\nplayer atk: " + atk + "\n";
+        return "player name: " + pName + "\nplayer class: " + pClass + "\nplayer base hp: " + baseHp + "\nplayer current hp: " + hp + "\nplayer atk: " + atk;
     }
 }

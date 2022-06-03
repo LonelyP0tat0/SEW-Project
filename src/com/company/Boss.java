@@ -4,7 +4,6 @@ public class Boss extends Enemy {
 
     public Boss (String bossName) {
         bName = bossName;
-        bCLass = "boss";
         mClass = "";
         atk = 5;
         hp = 50;

@@ -6,8 +6,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -21,8 +19,7 @@ public class Game extends Application {
     Monster goblin = new Monster("goblin");
     Boss boss = new Boss("Malenia");
 
-    public int iFight = 0;
-    public int iSPell = 0;
+    public int enemyCounter = 0;
 
     Stage stage;
 
@@ -45,13 +42,12 @@ public class Game extends Application {
         stage.show();
     }
 
-
     public void switchScenes(Scene scene) {
         stage.setScene(scene);
     }
 
     public Scene gameMenu() {
-        button1 = new Button("Click to start game");
+        button1 = new Button("START");
         button1.setOnAction(e -> switchScenes(scene2));
         vbox1 = new VBox(button1);
         scene1 = new Scene(vbox1, 800, 500);
@@ -62,7 +58,7 @@ public class Game extends Application {
     private Scene gameStart() {
         stage.setTitle("Game");
 
-        Enemy[] enemies = new Enemy[]{skeleton, troll, goblin};
+        Enemy[] enemies = new Enemy[]{skeleton, troll, goblin, boss};
 
         GridPane gridPane = new GridPane();
         Scene scene = new Scene(gridPane, 1280, 720);
@@ -76,16 +72,16 @@ public class Game extends Application {
         fightB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if (enemies[iFight].alive) {
-                    player1.fight(enemies[iFight]);
+                if (enemies[enemyCounter].alive) {
+                    player1.fight(enemies[enemyCounter]);
                     if (player1.hp == 0) {
                         stage.close();
                     }
                 }
-                if (!enemies[iFight].alive) {
-                    iFight++;
+                if (!enemies[enemyCounter].alive) {
+                    enemyCounter++;
                 }
-                if (iFight == enemies.length - 1 && !enemies[iFight].alive) {
+                if (enemyCounter == enemies.length - 1 && !enemies[enemyCounter].alive) {
                     stage.close();
                 }
             }
@@ -103,16 +99,19 @@ public class Game extends Application {
         spellB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if (enemies[iSPell].alive) {
-                    player1.spell(enemies[iSPell]);
+                if (enemies[enemyCounter].alive) {
+                    player1.spell(enemies[enemyCounter]);
                     if (player1.hp == 0) {
                         stage.close();
                     }
+                    if (enemies[enemyCounter].mClass.equals("") && enemies[enemyCounter].hp == 0) {
+                        stage.close();
+                    }
                 }
-                if (!enemies[iSPell].alive) {
-                    iSPell++;
+                if (!enemies[enemyCounter].alive) {
+                    enemyCounter++;
                 }
-                if (iSPell == enemies.length - 1 && !enemies[iSPell].alive) {
+                if (enemyCounter == enemies.length - 1 && !enemies[enemyCounter].alive) {
                     stage.close();
                 }
             }
@@ -123,7 +122,7 @@ public class Game extends Application {
             @Override
             public void handle(Event event) {
                 System.out.println(player1);
-                System.out.println(troll);
+                System.out.println(enemies[enemyCounter]);
             }
         });
 
