@@ -42,9 +42,10 @@ public class Game extends Application {
             @Override
             public void handle(Event event) {
                 for (int i = 0; i < enemies.length; i++) {
-                    if (enemies[i].alive) {
+                    if (!enemies[i].alive) {
+                        i++;
+                    } else if (enemies[i].alive) {
                         player1.fight(enemies[i]);
-                        break;
                     }
                 }
 
