@@ -10,16 +10,31 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
 
 public class Game extends Application {
 
     Player player1 = new Player("player", "archer");
-    Monster skeleton = new Monster("skeleton");
-    Monster troll = new Monster("troll");
-    Monster goblin = new Monster("goblin");
-    Boss boss = new Boss("Malenia");
+    Enemy s1 = new Monster("skeleton");
+    Enemy s2 = new Monster("skeleton");
+    Enemy s3 = new Monster("skeleton");
+    Enemy s4 = new Monster("skeleton");
+    Enemy s5 = new Monster("skeleton");
+    Enemy g1 = new Monster("goblin");
+    Enemy g2 = new Monster("goblin");
+    Enemy g3 = new Monster("goblin");
+    Enemy g4 = new Monster("goblin");
+    Enemy g5 = new Monster("goblin");
+    Enemy g6 = new Monster("goblin");
+    Enemy g7 = new Monster("goblin");
+    Enemy t1 = new Monster("troll");
+    Enemy t2 = new Monster("troll");
+    Enemy t3 = new Monster("troll");
+    Enemy boss = new Boss("Malenia");
 
     public int enemyCounter = 0;
+    public int spellCooldown = 0;
 
     Stage stage;
 
@@ -58,10 +73,10 @@ public class Game extends Application {
     private Scene gameStart() {
         stage.setTitle("Game");
 
-        Enemy[] enemies = new Enemy[]{skeleton, troll, goblin, boss};
+        Enemy[] enemies = new Enemy[]{s1, s2, s3, g1, g2, s4, s5, t1, g3, g4, g5, t2, g6, g7, t3, boss};
 
         GridPane gridPane = new GridPane();
-        Scene scene = new Scene(gridPane, 1280, 720);
+        Scene scene = new Scene(gridPane, 600, 500);
         stage.setScene(scene);
 
         gridPane.setHgap(8);
@@ -72,17 +87,23 @@ public class Game extends Application {
         fightB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
+                if (spellCooldown > 0) {
+                    spellCooldown -= 1;
+                } else {
+                    spellCooldown = 0;
+                }
+
                 if (enemies[enemyCounter].alive) {
                     player1.fight(enemies[enemyCounter]);
                     if (player1.hp == 0) {
                         stage.close();
                     }
                 }
-                if (!enemies[enemyCounter].alive) {
-                    enemyCounter++;
-                }
+
                 if (enemyCounter == enemies.length - 1 && !enemies[enemyCounter].alive) {
                     stage.close();
+                } else if (!enemies[enemyCounter].alive) {
+                    enemyCounter++;
                 }
             }
         });
@@ -99,20 +120,25 @@ public class Game extends Application {
         spellB.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if (enemies[enemyCounter].alive) {
-                    player1.spell(enemies[enemyCounter]);
-                    if (player1.hp == 0) {
+                if (spellCooldown == 0) {
+                    spellCooldown += 3;
+                    if (enemies[enemyCounter].alive) {
+                        player1.spell(enemies[enemyCounter]);
+                        if (player1.hp == 0) {
+                            stage.close();
+                        }
+                        if (enemies[enemyCounter].mClass.equals("") && enemies[enemyCounter].hp == 0) {
+                            stage.close();
+                        }
+                    }
+                    if (!enemies[enemyCounter].alive) {
+                        enemyCounter++;
+                    }
+                    if (enemyCounter == enemies.length - 1 && !enemies[enemyCounter].alive) {
                         stage.close();
                     }
-                    if (enemies[enemyCounter].mClass.equals("") && enemies[enemyCounter].hp == 0) {
-                        stage.close();
-                    }
-                }
-                if (!enemies[enemyCounter].alive) {
-                    enemyCounter++;
-                }
-                if (enemyCounter == enemies.length - 1 && !enemies[enemyCounter].alive) {
-                    stage.close();
+                } else {
+                    System.out.println("\nYou can't use this yet. spell cooldown: " + spellCooldown);
                 }
             }
         });

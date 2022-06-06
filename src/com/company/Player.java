@@ -10,7 +10,7 @@ public class Player {
     int hp;
     int baseHp;
     int xp = 0;
-    int level = 1;
+    int level = 0;
     boolean alive;
 
     Player (String playerName, String playerClass) {
@@ -68,8 +68,6 @@ public class Player {
         if (enemy.passive.equals("rejuvenation") && (enemy.hp + 2) <= enemy.baseHp) {
             enemy.hp += 2;
             System.out.println(enemy.bName + " has healed 2 hp back thanks to its passive, remaining hp:" + enemy.hp);
-        } else {
-            enemy.hp = baseHp;
         }
 
         enemy.hp -= atk;
@@ -258,7 +256,7 @@ public class Player {
     private void kill (Enemy enemy) {
         enemy.alive = false;
         if (enemy.mClass == "") {
-            System.out.println("Congratulations, you have defeated " + enemy.bName + "!" + "\nYou can now escape the dungeon with the boss's master key!");
+            System.out.println("Congratulations, you have defeated " + enemy.bName + "!" + "\nYou escape the dungeon with the boss's key!");
         } else {
             System.out.println("the " + enemy.mClass + " is dead!");
             if (level != 5) {
