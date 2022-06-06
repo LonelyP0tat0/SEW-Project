@@ -10,8 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
 
 public class Game extends Application {
 
@@ -152,10 +150,23 @@ public class Game extends Application {
             }
         });
 
+        Button spellCDB = new Button("spell Cooldown");
+        spellCDB.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                if (spellCooldown == 0) {
+                    System.out.println("\n" + player1.spell + " is ready to use!");
+                } else {
+                    System.out.println("Remaining cooldown: " + spellCooldown);
+                }
+            }
+        });
+
         gridPane.add(fightB, 0, 40);
         gridPane.add(healB, 15, 40);
         gridPane.add(spellB, 30, 40);
         gridPane.add(statsB, 45, 40);
+        gridPane.add(spellCDB, 30, 41);
 
         gridPane.setGridLinesVisible(false);
 
