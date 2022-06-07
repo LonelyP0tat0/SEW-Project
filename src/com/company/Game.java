@@ -162,11 +162,21 @@ public class Game extends Application {
             }
         });
 
+        Button exitB = new Button("exit");
+        exitB.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                System.out.println("\nYou fall to your demise due to your lack of will!");
+                stage.close();
+            }
+        });
+
         gridPane.add(fightB, 0, 40);
         gridPane.add(healB, 15, 40);
         gridPane.add(spellB, 30, 40);
-        gridPane.add(statsB, 45, 40);
         gridPane.add(spellCDB, 30, 41);
+        gridPane.add(statsB, 45, 40);
+        gridPane.add(exitB, 45, 41);
 
         gridPane.setGridLinesVisible(false);
 
