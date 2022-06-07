@@ -91,7 +91,7 @@ public class Player {
         if (enemy.hp == 0 && hp != 0) {
             kill(enemy);
             if (itemDrop(enemy, allItems)) {
-                System.out.println(this);
+                System.out.println("YOur opponent has dropped an item, you equip it and boost your stats");
             }
             if (xp >= 15) {
                 levelUp();
@@ -196,7 +196,7 @@ public class Player {
         if (enemy.hp == 0 && hp != 0) {
             kill(enemy);
             if (itemDrop(enemy, allItems)) {
-                System.out.println(this);
+                System.out.println("YOur opponent has dropped an item, you equip it and boost your stats");
             }
             if (xp >= 15) {
                 levelUp();
@@ -240,7 +240,7 @@ public class Player {
             atk += 2;
             baseHp += 4;
             System.out.println("\nYou have leveled up, your new level is now: " + level);
-            System.out.println("All your base stats have been boosted:\n" + "\n" + this);
+            System.out.println("All your base stats have been boosted\n");
         }
     }
 
